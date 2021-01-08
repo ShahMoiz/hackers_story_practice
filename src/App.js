@@ -1,11 +1,10 @@
-import {List} from './ListComponent/list'
+import {List} from './ListComponent/list';
+import React from 'react';
 import './App.css';
 
 
 const App = () => {
-  const handleChange = event => {
-    console.log(event.target.value)
-  }
+  
 
   const stories = [
     {
@@ -33,12 +32,19 @@ const App = () => {
         objectId: 2
     },
 ];
+// const searchData = "Hello"
+const [searchData, setSearchData] = React.useState("");
+const handleChange = event => {
+  setSearchData(event.target.value)
+  console.log(event.target.value)
+}
   return (
   <div >
       <header >
         <h1>My Hacker Story</h1>
         <label htmlFor="search">Search:</label>
         <input id="search" type="text" onChange={handleChange}/>
+        <p>you are searching <strong>{searchData}</strong></p>
       </header>
 
       <List list={stories}/>
