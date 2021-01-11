@@ -10,7 +10,7 @@ const App = () => {
 
   const stories = [
     {
-      title: 'React',
+      title: 'The Road to React',
       url: 'https://google.com',
       auther: 'Abdul Moiz',
       num_comments: 3,
@@ -35,7 +35,7 @@ const App = () => {
     },
   ];
 
-  const [searchData, setSearchData] = React.useState("");
+  const [searchData, setSearchData] = React.useState("React");
   const handleChange = event => {
     setSearchData(event.target.value);
     console.log(event.target.value)   // props.onSearch(event);
@@ -43,12 +43,12 @@ const App = () => {
   }
   const searchedData = stories.filter(story =>
     story.title.toLowerCase().includes(searchData.toLowerCase()))
-    
+
   return (
     <div >
       <header >
         <h1>My Hacker Story</h1>
-        <Search onSearch={handleChange} />
+        <Search searchTerm={searchData} onSearch={handleChange} />
       </header>
 
       <List list={searchedData} />
@@ -56,4 +56,7 @@ const App = () => {
   )
 }
 
+const Item = () => {
+  
+}
 export default App;
