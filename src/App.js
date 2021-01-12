@@ -12,7 +12,7 @@ const App = () => {
     {
       title: 'The Road to React',
       url: 'https://google.com',
-      auther: 'Abdul Moiz',
+      author: 'Abdul Moiz',
       num_comments: 3,
       points: 4,
       objectId: 0
@@ -20,7 +20,7 @@ const App = () => {
     {
       title: 'Angular',
       url: 'https://google.com',
-      auther: 'Abdul hadi',
+      author: 'Abdul hadi',
       num_comments: 3,
       points: 4,
       objectId: 1
@@ -28,14 +28,14 @@ const App = () => {
     {
       title: 'Laravel',
       url: 'https://google.com',
-      auther: 'Haris',
+      author: 'Haris',
       num_comments: 3,
       points: 4,
       objectId: 2
     },
   ];
 
-  const [searchData, setSearchData] = React.useState("React");
+  const [searchData, setSearchData] = React.useState("");
   const handleChange = event => {
     setSearchData(event.target.value);
     console.log(event.target.value)   // props.onSearch(event);
@@ -56,7 +56,4 @@ const App = () => {
   )
 }
 
-const Item = () => {
-  
-}
 export default App;
