@@ -4,6 +4,16 @@ import React from 'react';
 import { Search } from './searchComponent/search';
 import './App.css';
 
+const useSemiPersistentState = (key, initialValue) => {
+  const [value, setValue] = React.useState(
+    localStorage.getItem(key) || initialValue
+  )
+  React.useEffect(() => {
+    localStorage.setItem(key, value)
+  }, [value])
+
+  return [value, setValue]
+}
 
 const App = () => {
 
@@ -35,10 +45,18 @@ const App = () => {
     },
   ];
 
-  const [searchData, setSearchData] = React.useState("");
+ 
+
+  const [searchData, setSearchData] = useSemiPersistentState('search', 'react');
+  
+  // React.useEffect(() => {
+  //   localStorage.setItem('search', searchData );
+  // }, [searchData])
+  
   const handleChange = event => {
     setSearchData(event.target.value);
     console.log(event.target.value)   // props.onSearch(event);
+    // localStorage.setItem('search', event.target.value )
 
   }
   const searchedData = stories.filter(story =>
