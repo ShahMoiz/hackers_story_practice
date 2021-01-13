@@ -1,7 +1,7 @@
 import { List } from './ListComponent/list';
 import React from 'react';
 
-import { Search } from './searchComponent/search';
+import { InputWithLabel } from './inputComponent/inputWithLabel';
 import './App.css';
 
 const useSemiPersistentState = (key, initialValue) => {
@@ -28,15 +28,15 @@ const App = () => {
       objectId: 0
     },
     {
-      title: 'Angular',
+      title: 'React.Js Essentials - 2015',
       url: 'https://google.com',
-      author: 'Abdul hadi',
+      author: 'Fedosejev',
       num_comments: 3,
       points: 4,
       objectId: 1
     },
     {
-      title: 'Laravel',
+      title: 'React Hooks in Action',
       url: 'https://google.com',
       author: 'Haris',
       num_comments: 3,
@@ -47,7 +47,7 @@ const App = () => {
 
  
 
-  const [searchData, setSearchData] = useSemiPersistentState('search', 'react');
+  const [searchData, setSearchData] = useSemiPersistentState('search', '');
   
   // React.useEffect(() => {
   //   localStorage.setItem('search', searchData );
@@ -66,7 +66,12 @@ const App = () => {
     <div >
       <header >
         <h1>My Hacker Story</h1>
-        <Search searchTerm={searchData} onSearch={handleChange} />
+        <InputWithLabel 
+          type="text"
+          id="search"
+          label="Search"
+          searchTerm={searchData} 
+          onSearch={handleChange} />
       </header>
 
       <List list={searchedData} />
