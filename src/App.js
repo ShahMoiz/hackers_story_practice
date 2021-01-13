@@ -4,6 +4,34 @@ import React from 'react';
 import { InputWithLabel } from './inputComponent/inputWithLabel';
 import './App.css';
 
+
+const initialStories = [
+  {
+    title: 'The Road to React',
+    url: 'https://google.com',
+    author: 'Abdul Moiz',
+    num_comments: 3,
+    points: 4,
+    objectId: 0
+  },
+  {
+    title: 'React.Js Essentials - 2015',
+    url: 'https://google.com',
+    author: 'Fedosejev',
+    num_comments: 3,
+    points: 4,
+    objectId: 1
+  },
+  {
+    title: 'React Hooks in Action',
+    url: 'https://google.com',
+    author: 'Haris',
+    num_comments: 3,
+    points: 4,
+    objectId: 2
+  },
+];
+
 const useSemiPersistentState = (key, initialValue) => {
   const [value, setValue] = React.useState(
     localStorage.getItem(key) || initialValue
@@ -17,38 +45,19 @@ const useSemiPersistentState = (key, initialValue) => {
 
 const App = () => {
 
-
-  const stories = [
-    {
-      title: 'The Road to React',
-      url: 'https://google.com',
-      author: 'Abdul Moiz',
-      num_comments: 3,
-      points: 4,
-      objectId: 0
-    },
-    {
-      title: 'React.Js Essentials - 2015',
-      url: 'https://google.com',
-      author: 'Fedosejev',
-      num_comments: 3,
-      points: 4,
-      objectId: 1
-    },
-    {
-      title: 'React Hooks in Action',
-      url: 'https://google.com',
-      author: 'Haris',
-      num_comments: 3,
-      points: 4,
-      objectId: 2
-    },
-  ];
-
- 
-
   const [searchData, setSearchData] = useSemiPersistentState('search', '');
   
+  const [stories, setStories] = React.useState(initialStories);
+
+  const removeStory = objId => {
+    const leftStories = stories.filter(story =>
+      objId !== story.objectId
+      );
+    console.log("Left Stories", leftStories);
+    
+    setStories(leftStories)
+    console.log("After Left Stories", leftStories)
+  }
   // React.useEffect(() => {
   //   localStorage.setItem('search', searchData );
   // }, [searchData])
@@ -59,22 +68,25 @@ const App = () => {
     // localStorage.setItem('search', event.target.value )
 
   }
+  
+  
   const searchedData = stories.filter(story =>
     story.title.toLowerCase().includes(searchData.toLowerCase()))
-
   return (
     <div >
-      <header >
         <h1>My Hacker Story</h1>
         <InputWithLabel 
           type="text"
           id="search"
-          label="Search"
           searchTerm={searchData} 
-          onSearch={handleChange} />
-      </header>
+          onSearch={handleChange}
+          isFocused>
+            <strong>Search</strong>
+          </InputWithLabel>
+ 
 
-      <List list={searchedData} />
+
+      <List onRemoveStory={removeStory} list={searchedData} />
     </div>
   )
 }

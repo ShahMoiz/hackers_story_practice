@@ -1,8 +1,16 @@
+import React from "react";
 
 
-export const InputWithLabel = ({id, type, label, searchTerm, onSearch}) => (
+export const InputWithLabel = ({id, children, type, isFocused, searchTerm, onSearch}) => {
+    const inputRef = React.useRef();
+    React.useEffect(() => {
+        if(isFocused && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [isFocused])   
+    return (
         <div>
-            <label htmlFor={id}>{label}:</label>
-            <input id={id} type={type} value={searchTerm} onChange={onSearch} />
+            <label htmlFor={id}>{children}:</label>
+            <input id={id} type={type} value={searchTerm} autoFocus={inputRef} onChange={onSearch} />
         </div>
-    )
+    )}
