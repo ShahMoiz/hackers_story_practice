@@ -54,10 +54,16 @@ const App = () => {
   
 
   const [stories, setStories] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [isError, setIsError] = React.useState(false);
 
   React.useEffect(() => {
+    setIsLoading(true);
     getAsyncStories().then(result => {
       setStories(result.stories)
+      setIsLoading(false);
+    }).catch(() => {
+      setIsError(true);
     });
   }, [])
   const removeStory = objId => {
@@ -86,6 +92,7 @@ const App = () => {
   return (
     <div >
         <h1>My Hacker Story</h1>
+        
         <InputWithLabel 
           type="text"
           id="search"
@@ -95,9 +102,17 @@ const App = () => {
             <strong>Search</strong>
           </InputWithLabel>
  
+          {
+          isLoading? ( <h4>Loading...</h4> ) : (
+            <List onRemoveStory={removeStory} list={searchedData} />
+          ) 
+        }
 
+        {
+          isError && <h4>Something Went Wrong... Try Again Later..</h4>
+        }
 
-      <List onRemoveStory={removeStory} list={searchedData} />
+      
     </div>
   )
 }
